@@ -58,6 +58,9 @@ public class Student {
         System.out.println("Are diploma studentul? "+AreDiploma);
 
         calculMedie();
+
+
+
     }
 
     public void calculMedie(){
