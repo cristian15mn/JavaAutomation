@@ -23,7 +23,7 @@ public class WebTableTest {
 
         //facem un scroll pe pagina
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,400)", "");
+        js.executeScript("window.scrollBy(0,400)", ""); //o=X si 400=Y, coordonatele X si Y reprez cele 2 valori(0 si 400)
 
         //declaram un web element
         WebElement elementField=driver.findElement(By.xpath("//h5[text()='Elements']"));
