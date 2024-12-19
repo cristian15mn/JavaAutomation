@@ -17,6 +17,7 @@ public class PracticeFormTest {
         //deschidem un browser de Chrome
         driver = new ChromeDriver();
 
+
         //accesam o pagina web
         driver.get("https://demoqa.com/");
 
