@@ -45,7 +45,7 @@ public class PracticeFormTest {
         emailPacticeField.sendKeys(emailValue);
 
         WebElement mobilePracticeField=driver.findElement(By.cssSelector("input[placeholder='Mobile Number']"));
-        String phoneNumber="+409090909";
+        String phoneNumber="0409090909";
         mobilePracticeField.sendKeys(phoneNumber);
 
         WebElement uploadPicturePracticeField=driver.findElement(By.id("uploadPicture"));
@@ -81,6 +81,8 @@ public class PracticeFormTest {
         cityElement.sendKeys("Delhi");
         cityElement.sendKeys(Keys.ENTER);
 
+        WebElement submitElement= driver.findElement(By.id("submit"));
+        executor.executeScript("arguments[0].click();", submitElement);
 
     }
 }
