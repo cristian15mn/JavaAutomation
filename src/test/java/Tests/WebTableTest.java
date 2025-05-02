@@ -1,5 +1,10 @@
 package Tests;
 
+import HelperMethods.ElementMethods;
+import HelperMethods.JavascriptHelpers;
+import HelperMethods.WindowMethods;
+import Pages.CommonPage;
+import Pages.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +17,12 @@ import java.util.List;
 
 public class WebTableTest {
 
-    public WebDriver driver;
+    WebDriver driver;
+    JavascriptHelpers javascriptHelpers;
+    ElementMethods elementMethods;
+    CommonPage commonPage;
+    HomePage homePage;
+
     @Test
     public void automationMethod(){
         //deschidem un browser de Chrome
@@ -24,16 +34,23 @@ public class WebTableTest {
         //facem browser-ul in modul maximize
         driver.manage().window().maximize();
 
+        javascriptHelpers=new JavascriptHelpers(driver);
+        elementMethods = new ElementMethods(driver);
+        commonPage = new CommonPage(driver);
+        homePage = new HomePage(driver);
+
         //facem un scroll pe pagina
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,400)", ""); //o=X si 400=Y, coordonatele X si Y reprez cele 2 valori(0 si 400)
 
         //declaram un web element
-        WebElement elementField=driver.findElement(By.xpath("//h5[text()='Elements']"));
-        elementField.click();
+//        WebElement elementField=driver.findElement(By.xpath("//h5[text()='Elements']"));
+//        elementField.click();
+        homePage.goToDesiredMenus("Elements");
 
-        WebElement webTableField=driver.findElement(By.xpath("//span[text()='Web Tables']"));
-        webTableField.click();
+//        WebElement webTableField=driver.findElement(By.xpath("//span[text()='Web Tables']"));
+//        webTableField.click();
+        commonPage.goToDesiredSubMenus("Web Tables");
 
         List<WebElement> tableElements =driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even' or @class='rt-tr -odd']"));
         Integer actualTableSize=tableElements.size();
@@ -42,11 +59,11 @@ public class WebTableTest {
         addField.click();
 
         WebElement firstNameField=driver.findElement(By.id("firstName"));
-        String firstNameValue="Cristian";
+        String firstNameValue="firstName";
         firstNameField.sendKeys(firstNameValue);
 
         WebElement lastNameField=driver.findElement(By.id("lastName"));
-        String lastNameValue="Negrea";
+        String lastNameValue="lastName";
         lastNameField.sendKeys(lastNameValue);
 
         WebElement emailField=driver.findElement(By.id("userEmail"));

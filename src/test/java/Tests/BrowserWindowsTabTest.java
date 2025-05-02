@@ -1,5 +1,11 @@
 package Tests;
 
+import HelperMethods.AlertMethods;
+import HelperMethods.ElementMethods;
+import HelperMethods.JavascriptHelpers;
+import HelperMethods.WindowMethods;
+import Pages.CommonPage;
+import Pages.HomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -7,13 +13,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowserWindowsTab {
+public class BrowserWindowsTabTest {
 
-    public WebDriver driver;
+    WebDriver driver;
+    JavascriptHelpers javascriptHelpers;
+    ElementMethods elementMethods;
+    WindowMethods windowMethods;
+    CommonPage commonPage;
+    HomePage homePage;
+
     @Test
     public void automationMethod() {
         //deschidem un browser de Chrome
@@ -26,16 +37,25 @@ public class BrowserWindowsTab {
         //facem browser-ul in modul maximize
         driver.manage().window().maximize();
 
+        javascriptHelpers=new JavascriptHelpers(driver);
+        elementMethods = new ElementMethods(driver);
+        windowMethods=new WindowMethods(driver);
+        commonPage = new CommonPage(driver);
+        homePage = new HomePage(driver);
+
         //facem un scroll pe pagina
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("window.scrollBy(0,400)", ""); //o=X si 400=Y, coordonatele X si Y reprez cele 2 valori(0 si 400)
+//        JavascriptExecutor executor = (JavascriptExecutor) driver;
+//        executor.executeScript("window.scrollBy(0,400)", ""); //o=X si 400=Y, coordonatele X si Y reprez cele 2 valori(0 si 400)
 
         //declaram un web element
-        WebElement alertWindowField = driver.findElement(By.xpath("//h5[text()='Alerts, Frame & Windows']"));
-        alertWindowField.click();
+//        WebElement alertWindowField = driver.findElement(By.xpath("//h5[text()='Alerts, Frame & Windows']"));
+//        alertWindowField.click();
+        homePage.goToDesiredMenus("Alerts, Frame & Windows");
 
-        WebElement browserWindowsElement=driver.findElement(By.xpath("//span[text()='Browser Windows']"));
-        browserWindowsElement.click();
+//        WebElement browserWindowsElement=driver.findElement(By.xpath("//span[text()='Browser Windows']"));
+//        browserWindowsElement.click();
+        commonPage.goToDesiredSubMenus("Browser Windows");
+
 
         WebElement browserNewTab=driver.findElement(By.id("tabButton"));
         browserNewTab.click();
