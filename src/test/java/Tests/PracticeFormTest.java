@@ -4,6 +4,7 @@ import HelperMethods.ElementMethods;
 import HelperMethods.JavascriptHelpers;
 import Pages.CommonPage;
 import Pages.HomePage;
+import Pages.PracticeFormPage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
@@ -14,19 +15,18 @@ import java.util.List;
 
 public class PracticeFormTest {
 
-     WebDriver driver;
-     ElementMethods elementMethods;
-     JavascriptHelpers javascriptHelpers;
-     CommonPage commonPage;
-     HomePage homePage;
-
+    WebDriver driver;
+    ElementMethods elementMethods;
+    JavascriptHelpers javascriptHelpers;
+    CommonPage commonPage;
+    HomePage homePage;
+    PracticeFormPage practiceFormPage;
 
 
     @Test
     public void automationMethod() {
         //deschidem un browser de Chrome
         driver = new ChromeDriver();
-
 
         //accesam o pagina web
         driver.get("https://demoqa.com/");
@@ -36,8 +36,26 @@ public class PracticeFormTest {
 
         elementMethods = new ElementMethods(driver);
         javascriptHelpers = new JavascriptHelpers(driver);
-        commonPage=new CommonPage(driver);
-        homePage=new HomePage(driver);
+        commonPage = new CommonPage(driver);
+        homePage = new HomePage(driver);
+        practiceFormPage = new PracticeFormPage(driver);
+
+        homePage.goToDesiredMenus("Forms");
+        commonPage.goToDesiredSubMenus("Practice Form");
+
+        practiceFormPage.completeFirstRegion("FirstName", "LastName", "test@test.com", "cluj 4", "07234241");
+        practiceFormPage.completeGender("Female");
+        //practiceFormPage.completeSubject("Maths");
+        List<String> subject = new ArrayList<>();
+        subject.add("Maths");
+        subject.add("English");
+        practiceFormPage.completeSubjectsWithList(subject);
+        List<String> hobbies = new ArrayList<>();
+        hobbies.add("Music");
+        hobbies.add("Sports");
+        //hobbies.add("Reading");
+        practiceFormPage.completeHobies(hobbies);
+
 
         //facem un scroll pe pagina
         // JavascriptExecutor executor = (JavascriptExecutor) driver;
@@ -48,43 +66,43 @@ public class PracticeFormTest {
         //formField.click();
         //javascriptHelpers.scrollDown(400);
         //elementMethods.selectElementFromListByText(elementsField, "Forms");
-        homePage.goToDesiredMenus("Forms");
+        //homePage.goToDesiredMenus("Forms");
 
         //WebElement practiceFormField=driver.findElement(By.xpath("//span[text()='Practice Form']"));
         //practiceFormField.click();
 //        List<WebElement> elementsTable = driver.findElements(By.xpath("//span[@class='text']"));
 //        elementMethods.selectElementFromListByText(elementsTable, "Practice Form");
-        commonPage.goToDesiredSubMenus("Practice Form");
+        //commonPage.goToDesiredSubMenus("Practice Form");
 
-        WebElement addFirstNamePracticeField = driver.findElement(By.id("firstName"));
+        // WebElement addFirstNamePracticeField = driver.findElement(By.id("firstName"));
 //        String firstNameValue="FistName";
 //        addFirstNamePracticeField.sendKeys(firstNameValue);
-        elementMethods.fillElement(addFirstNamePracticeField, "FirstName");
+        //elementMethods.fillElement(addFirstNamePracticeField, "FirstName");
 
-        WebElement addLastNamePracticeField = driver.findElement(By.id("lastName"));
+        //WebElement addLastNamePracticeField = driver.findElement(By.id("lastName"));
 //        String lastNameValue="LastName";
 //        addLastNamePracticeField.sendKeys(lastNameValue);
-        elementMethods.fillElement(addLastNamePracticeField, "LastName");
+        // elementMethods.fillElement(addLastNamePracticeField, "LastName");
 
 
-        WebElement emailPacticeField = driver.findElement(By.id("userEmail"));
+        // WebElement emailPacticeField = driver.findElement(By.id("userEmail"));
 //        String emailValue="test@test.com";
 //        emailPacticeField.sendKeys(emailValue);
-        elementMethods.fillElement(emailPacticeField, "test@test.com");
+        // elementMethods.fillElement(emailPacticeField, "test@test.com");
 
-        WebElement mobilePracticeField = driver.findElement(By.cssSelector("input[placeholder='Mobile Number']"));
+        //WebElement mobilePracticeField = driver.findElement(By.cssSelector("input[placeholder='Mobile Number']"));
 //        String phoneNumber="0409090909";
 //        mobilePracticeField.sendKeys(phoneNumber);
-        elementMethods.fillElement(mobilePracticeField, "0409090909");
+        // elementMethods.fillElement(mobilePracticeField, "0409090909");
 
-        WebElement uploadPicturePracticeField = driver.findElement(By.id("uploadPicture"));
+        // WebElement uploadPicturePracticeField = driver.findElement(By.id("uploadPicture"));
 //        File file = new File("src/test/resources/Image1.png");
 //        uploadPicturePracticeField.sendKeys(file.getAbsolutePath());
-        elementMethods.addPictures(uploadPicturePracticeField);
+        //elementMethods.addPictures(uploadPicturePracticeField);
 
-        WebElement maleElement = driver.findElement(By.xpath("//label[@for='gender-radio-1']"));
-        WebElement femaleElement = driver.findElement(By.xpath("//label[@for='gender-radio-2']"));
-        WebElement otherElement = driver.findElement(By.xpath("//label[@for='gender-radio-3']"));
+//        WebElement maleElement = driver.findElement(By.xpath("//label[@for='gender-radio-1']"));
+//        WebElement femaleElement = driver.findElement(By.xpath("//label[@for='gender-radio-2']"));
+//        WebElement otherElement = driver.findElement(By.xpath("//label[@for='gender-radio-3']"));
 //        String gender = "Other";
 //        if (maleElement.getText().equals(gender)) {
 //            maleElement.click();
@@ -93,13 +111,13 @@ public class PracticeFormTest {
 //        } else if (otherElement.getText().equals(gender)) {
 //            otherElement.click();
 //        }
-        List<WebElement> genderElement = new ArrayList<>();
-        genderElement.add(maleElement);
-        genderElement.add(femaleElement);
-        genderElement.add(otherElement);
-        elementMethods.selectElementFromListByText(genderElement, "Female");
-
-        WebElement subjectsElement = driver.findElement(By.id("subjectsInput"));
+//        List<WebElement> genderElement = new ArrayList<>();
+//        genderElement.add(maleElement);
+//        genderElement.add(femaleElement);
+//        genderElement.add(otherElement);
+//        elementMethods.selectElementFromListByText(genderElement, "Female");
+//
+//        WebElement subjectsElement = driver.findElement(By.id("subjectsInput"));
 //        executor.executeScript("window.scrollBy(0,400)", "");
 //        String subjectsValue="Social Studies";
 //        subjectsElement.sendKeys(subjectsValue);
