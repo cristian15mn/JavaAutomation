@@ -4,6 +4,7 @@ import HelperMethods.AlertMethods;
 import HelperMethods.ElementMethods;
 import Pages.CommonPage;
 import Pages.HomePage;
+import demoQAWebSite.ShareData.ShareData;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,8 +13,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class AlertTest {
-    WebDriver driver;
+public class AlertTest extends ShareData {
     ElementMethods elementMethods;
     AlertMethods alertMethods;
     CommonPage commonPage;
@@ -21,26 +21,14 @@ public class AlertTest {
 
     @Test
     public void automationMethod() {
-        //deschidem un browser de Chrome
-        driver = new ChromeDriver();
 
-
-        //accesam o pagina web
-        driver.get("https://demoqa.com/");
-
-        //Definim un wait implicit pentru un interval maxim de timp
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-        //facem browser-ul in modul maximize
-        driver.manage().window().maximize();
-
-        elementMethods = new ElementMethods(driver);
-        alertMethods = new AlertMethods(driver);
-        commonPage = new CommonPage(driver);
-        homePage = new HomePage(driver);
+        elementMethods=new ElementMethods(getDriver());
+        alertMethods = new AlertMethods(getDriver());
+        commonPage = new CommonPage(getDriver());
+        homePage = new HomePage(getDriver());
 
         //facem un scroll pe pagina
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
         executor.executeScript("window.scrollBy(0,400)", ""); //o=X si 400=Y, coordonatele X si Y reprez cele 2 valori(0 si 400)
 
         //declaram un web element
@@ -55,7 +43,7 @@ public class AlertTest {
         commonPage.goToDesiredSubMenus("Alerts");
 
 
-        WebElement alertOKElement = driver.findElement(By.id("alertButton"));
+        WebElement alertOKElement = getDriver().findElement(By.id("alertButton"));
         //alertOKElement.click();
         elementMethods.clickOnElements(alertOKElement);
         //ne mutam cu focusul pe Alerta, este necesar sa avem aceasta linie de cod ca sa putem interactiona cu Alerta
@@ -63,7 +51,7 @@ public class AlertTest {
 //        alertOK.accept();
         alertMethods.interactWithAlertsOK();
 
-        WebElement alertDelayOKElement = driver.findElement(By.id("timerAlertButton"));
+        WebElement alertDelayOKElement = getDriver().findElement(By.id("timerAlertButton"));
 //        alertDelayOKElement.click();
         elementMethods.clickOnElements(alertDelayOKElement);
 

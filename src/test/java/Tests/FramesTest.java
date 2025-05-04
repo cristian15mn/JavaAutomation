@@ -6,16 +6,15 @@ import HelperMethods.JavascriptHelpers;
 import HelperMethods.WindowMethods;
 import Pages.CommonPage;
 import Pages.HomePage;
+import demoQAWebSite.ShareData.ShareData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
 
-public class FramesTest {
+public class FramesTest extends ShareData {
 
-    WebDriver driver;
-    JavascriptHelpers javascriptHelpers;
     ElementMethods elementMethods;
     FrameMethods frameMethods;
     CommonPage commonPage;
@@ -23,23 +22,14 @@ public class FramesTest {
 
     @Test
     public void automationMethod() throws InterruptedException {
-        //deschidem un browser de Chrome
-        driver = new ChromeDriver();
 
-        //accesam o pagina web
-        driver.get("https://demoqa.com/");
-
-        //facem browser-ul in modul maximize
-        driver.manage().window().maximize();
-
-        javascriptHelpers=new JavascriptHelpers(driver);
-        elementMethods = new ElementMethods(driver);
-        frameMethods=new FrameMethods(driver);
-        commonPage = new CommonPage(driver);
-        homePage = new HomePage(driver);
+        elementMethods=new ElementMethods(getDriver());
+        frameMethods = new FrameMethods(getDriver());
+        commonPage = new CommonPage(getDriver());
+        homePage = new HomePage(getDriver());
 
         //facem un scroll pe pagina
-        javascriptHelpers.scrollDown(400);
+        //javascriptHelpers.scrollDown(400);
 
         //declaram un web element
 //        WebElement alertFrameField = driver.findElement(By.xpath("//h5[text()='Alerts, Frame & Windows']"));
@@ -52,28 +42,24 @@ public class FramesTest {
         commonPage.goToDesiredSubMenus("Frames");
 
 
-        javascriptHelpers.scrollDown(400);
+        //javascriptHelpers.scrollDown(400);
 
-        WebElement frame1Element = driver.findElement(By.id("frame1"));
+        WebElement frame1Element = getDriver().findElement(By.id("frame1"));
         frameMethods.switchToFrame(frame1Element);
-        WebElement sampleHeadingFrame1Element = driver.findElement(By.id("sampleHeading"));
+        WebElement sampleHeadingFrame1Element = getDriver().findElement(By.id("sampleHeading"));
         elementMethods.displayContentOfElement(sampleHeadingFrame1Element);
 
         //Ne ducem cu focusul inapoi pe pagina principala
         frameMethods.switchToMainContent();
 
-        WebElement frame2Element = driver.findElement(By.id("frame2"));
+        WebElement frame2Element = getDriver().findElement(By.id("frame2"));
         frameMethods.switchToFrame(frame2Element);
-        WebElement sampleHeadingFrame2Element = driver.findElement(By.id("sampleHeading"));
+        WebElement sampleHeadingFrame2Element = getDriver().findElement(By.id("sampleHeading"));
         elementMethods.displayContentOfElement(sampleHeadingFrame2Element);
 
-        Thread.sleep(2000);
-        javascriptHelpers.scroll(50, 50);
+        //javascriptHelpers.scroll(50, 50);
 
         frameMethods.switchToMainContent();
-
-        Thread.sleep(5000);
-        driver.quit();
     }
 
 }

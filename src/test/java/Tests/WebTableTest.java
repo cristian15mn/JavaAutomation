@@ -5,6 +5,7 @@ import HelperMethods.JavascriptHelpers;
 import HelperMethods.WindowMethods;
 import Pages.CommonPage;
 import Pages.HomePage;
+import demoQAWebSite.ShareData.ShareData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -15,32 +16,20 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class WebTableTest {
+public class WebTableTest extends ShareData {
 
-    WebDriver driver;
-    JavascriptHelpers javascriptHelpers;
-    ElementMethods elementMethods;
     CommonPage commonPage;
     HomePage homePage;
 
     @Test
     public void automationMethod(){
-        //deschidem un browser de Chrome
-        driver=new ChromeDriver();
 
-        //accesam o pagina web
-        driver.get("https://demoqa.com/");
 
-        //facem browser-ul in modul maximize
-        driver.manage().window().maximize();
-
-        javascriptHelpers=new JavascriptHelpers(driver);
-        elementMethods = new ElementMethods(driver);
-        commonPage = new CommonPage(driver);
-        homePage = new HomePage(driver);
+        commonPage = new CommonPage(getDriver());
+        homePage = new HomePage(getDriver());
 
         //facem un scroll pe pagina
-        JavascriptExecutor js = (JavascriptExecutor) driver;
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("window.scrollBy(0,400)", ""); //o=X si 400=Y, coordonatele X si Y reprez cele 2 valori(0 si 400)
 
         //declaram un web element
@@ -52,41 +41,41 @@ public class WebTableTest {
 //        webTableField.click();
         commonPage.goToDesiredSubMenus("Web Tables");
 
-        List<WebElement> tableElements =driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even' or @class='rt-tr -odd']"));
+        List<WebElement> tableElements =getDriver().findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even' or @class='rt-tr -odd']"));
         Integer actualTableSize=tableElements.size();
 
-        WebElement addField=driver.findElement(By.id("addNewRecordButton"));
+        WebElement addField=getDriver().findElement(By.id("addNewRecordButton"));
         addField.click();
 
-        WebElement firstNameField=driver.findElement(By.id("firstName"));
+        WebElement firstNameField=getDriver().findElement(By.id("firstName"));
         String firstNameValue="firstName";
         firstNameField.sendKeys(firstNameValue);
 
-        WebElement lastNameField=driver.findElement(By.id("lastName"));
+        WebElement lastNameField=getDriver().findElement(By.id("lastName"));
         String lastNameValue="lastName";
         lastNameField.sendKeys(lastNameValue);
 
-        WebElement emailField=driver.findElement(By.id("userEmail"));
+        WebElement emailField=getDriver().findElement(By.id("userEmail"));
         String emailValue="test@test.com";
         emailField.sendKeys(emailValue);
 
-        WebElement ageField=driver.findElement(By.id("age"));
+        WebElement ageField=getDriver().findElement(By.id("age"));
         String ageValue="30";
         ageField.sendKeys(ageValue);
 
-        WebElement salaryField=driver.findElement(By.id("salary"));
+        WebElement salaryField=getDriver().findElement(By.id("salary"));
         String salaryValue="2000";
         salaryField.sendKeys(salaryValue);
 
-        WebElement departmentField=driver.findElement(By.id("department"));
+        WebElement departmentField=getDriver().findElement(By.id("department"));
         String departmentValue="testing";
         departmentField.sendKeys(departmentValue);
 
-        WebElement submitField=driver.findElement(By.id("submit"));
+        WebElement submitField=getDriver().findElement(By.id("submit"));
         submitField.click();
 
 
-        List<WebElement> expectedTableElements =driver.findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even' or @class='rt-tr -odd']"));
+        List<WebElement> expectedTableElements =getDriver().findElements(By.xpath("//div[@class='rt-tbody']/div/div[@class='rt-tr -even' or @class='rt-tr -odd']"));
         Integer expectedTableSize=actualTableSize+1;
         Assert.assertEquals(expectedTableElements.size(),expectedTableSize);
 

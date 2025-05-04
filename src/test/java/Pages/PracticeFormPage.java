@@ -10,19 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PracticeFormPage {
+public class PracticeFormPage extends CommonPage {
 
-    WebDriver driver;
-    ElementMethods elementMethods;
-    JavascriptHelpers javascriptHelpers;
-
-    public PracticeFormPage(WebDriver driver) {
-        this.driver = driver;
-        this.elementMethods = new ElementMethods(driver);
-        this.javascriptHelpers = new JavascriptHelpers(driver);
-        //asta e pt partea de driver.findElement
-        PageFactory.initElements(driver, this);
-    }
 
     @FindBy(id = "firstName")
     WebElement firstNameElement;
@@ -67,6 +56,10 @@ public class PracticeFormPage {
 
     @FindBy(id = "subjectsInput")
     WebElement subjectsElement;
+
+    public PracticeFormPage(WebDriver driver) {
+        super(driver);
+    }
 
 
     public void completeFirstRegion(String firstName, String lastName, String email, String address, String mobileNr) {

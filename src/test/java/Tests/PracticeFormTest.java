@@ -5,6 +5,7 @@ import HelperMethods.JavascriptHelpers;
 import Pages.CommonPage;
 import Pages.HomePage;
 import Pages.PracticeFormPage;
+import demoQAWebSite.ShareData.ShareData;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
@@ -13,11 +14,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PracticeFormTest {
+public class PracticeFormTest extends ShareData {
 
-    WebDriver driver;
-    ElementMethods elementMethods;
-    JavascriptHelpers javascriptHelpers;
     CommonPage commonPage;
     HomePage homePage;
     PracticeFormPage practiceFormPage;
@@ -25,20 +23,10 @@ public class PracticeFormTest {
 
     @Test
     public void automationMethod() {
-        //deschidem un browser de Chrome
-        driver = new ChromeDriver();
 
-        //accesam o pagina web
-        driver.get("https://demoqa.com/");
-
-        //facem browser-ul in modul maximize
-        driver.manage().window().maximize();
-
-        elementMethods = new ElementMethods(driver);
-        javascriptHelpers = new JavascriptHelpers(driver);
-        commonPage = new CommonPage(driver);
-        homePage = new HomePage(driver);
-        practiceFormPage = new PracticeFormPage(driver);
+        commonPage = new CommonPage(getDriver());
+        homePage = new HomePage(getDriver());
+        practiceFormPage = new PracticeFormPage(getDriver());
 
         homePage.goToDesiredMenus("Forms");
         commonPage.goToDesiredSubMenus("Practice Form");

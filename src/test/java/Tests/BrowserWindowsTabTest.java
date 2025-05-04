@@ -6,6 +6,7 @@ import HelperMethods.JavascriptHelpers;
 import HelperMethods.WindowMethods;
 import Pages.CommonPage;
 import Pages.HomePage;
+import demoQAWebSite.ShareData.ShareData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -16,32 +17,19 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowserWindowsTabTest {
+public class BrowserWindowsTabTest extends ShareData {
 
-    WebDriver driver;
-    JavascriptHelpers javascriptHelpers;
-    ElementMethods elementMethods;
+
     WindowMethods windowMethods;
     CommonPage commonPage;
     HomePage homePage;
 
     @Test
     public void automationMethod() {
-        //deschidem un browser de Chrome
-        driver = new ChromeDriver();
 
-
-        //accesam o pagina web
-        driver.get("https://demoqa.com/");
-
-        //facem browser-ul in modul maximize
-        driver.manage().window().maximize();
-
-        javascriptHelpers=new JavascriptHelpers(driver);
-        elementMethods = new ElementMethods(driver);
-        windowMethods=new WindowMethods(driver);
-        commonPage = new CommonPage(driver);
-        homePage = new HomePage(driver);
+        windowMethods=new WindowMethods(getDriver());
+        commonPage = new CommonPage(getDriver());
+        homePage = new HomePage(getDriver());
 
         //facem un scroll pe pagina
 //        JavascriptExecutor executor = (JavascriptExecutor) driver;
@@ -57,25 +45,25 @@ public class BrowserWindowsTabTest {
         commonPage.goToDesiredSubMenus("Browser Windows");
 
 
-        WebElement browserNewTab=driver.findElement(By.id("tabButton"));
+        WebElement browserNewTab=getDriver().findElement(By.id("tabButton"));
         browserNewTab.click();
 
         //getWindowHandles returneaza toate Windows deschide
-        List<String> tabList=new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(tabList.get(1));
-        WebElement sampleHeadingElement=driver.findElement(By.id("sampleHeading"));
+        List<String> tabList=new ArrayList<>(getDriver().getWindowHandles());
+        getDriver().switchTo().window(tabList.get(1));
+        WebElement sampleHeadingElement=getDriver().findElement(By.id("sampleHeading"));
         System.out.println("Textul din New Tab este: " + sampleHeadingElement.getText());
-        driver.close();
-        driver.switchTo().window(tabList.get(0));
+        getDriver().close();
+        getDriver().switchTo().window(tabList.get(0));
 
-        WebElement browserNewWindow=driver.findElement(By.id("windowButton"));
+        WebElement browserNewWindow=getDriver().findElement(By.id("windowButton"));
         browserNewWindow.click();
-        List<String> windowList=new ArrayList<>(driver.getWindowHandles());
-        driver.switchTo().window(windowList.get(1));
-        WebElement sampleHeadingNewWindowElement=driver.findElement(By.id("sampleHeading"));
+        List<String> windowList=new ArrayList<>(getDriver().getWindowHandles());
+        getDriver().switchTo().window(windowList.get(1));
+        WebElement sampleHeadingNewWindowElement=getDriver().findElement(By.id("sampleHeading"));
         System.out.println("Textul din New Window este: " + sampleHeadingNewWindowElement.getText());
-        driver.close();
-        driver.switchTo().window(windowList.get(0));
+        getDriver().close();
+        getDriver().switchTo().window(windowList.get(0));
 
 
     }

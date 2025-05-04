@@ -1,5 +1,6 @@
 package Tests;
 
+import demoQAWebSite.ShareData.ShareData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -10,26 +11,17 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class RecursivitateTest {
-    public WebDriver driver;
+public class RecursivitateTest extends ShareData {
 
     @Test
     public void parcurgereListeForEach() {
-        //deschidem un browser de Chrome
-        driver = new ChromeDriver();
-
-        //accesam o pagina web
-        driver.get("https://demoqa.com/sortable");
-
-        //facem browser-ul in modul maximize
-        driver.manage().window().maximize();
 
         //facem un scroll pe pagina
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
         executor.executeScript("window.scrollBy(0,400)", ""); //o=X si 400=Y, coordonatele X si Y reprez cele 2 valori(0 si 400)
 
-        Actions actions = new Actions(driver);
-        List<WebElement> list = driver.findElements(By.xpath("//div[@id='demo-tabpane-list']//div[@class='list-group-item list-group-item-action']"));
+        Actions actions = new Actions(getDriver());
+        List<WebElement> list = getDriver().findElements(By.xpath("//div[@id='demo-tabpane-list']//div[@class='list-group-item list-group-item-action']"));
         for (int i = 0; i < list.size() - 1; i++)
         {
             WebElement webElement = list.get(i);
